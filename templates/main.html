@@ -1,4 +1,4 @@
-<h1>Datastore test</h1>
+<h1>chat test</h1>
 <form method="post" action="/store">
 	<label>
 		enter your comment here:
@@ -15,12 +15,10 @@
 	<button>clear</button>
 </form>
 
-
-		<br>
-		<br>
-		
+	
 		<h2 style="margin-left: 17px">comments</h2>
 
 			{% for item in query %}
 				<p>{{ item.content }}</p>
 			{% endfor %}
+

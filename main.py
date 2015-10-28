@@ -25,8 +25,9 @@ class Comment(db.Model):
 
 class storehandler(Handler):
 	def post(self):
+		name = self.request.cookies.get('name')  
     		post = self.request.get("post")
-    		self.comment = Comment(content=post)
+    		self.comment = Comment(content= name + ": " + post)
     		self.comment.put()
     		self.redirect("/user")
 
@@ -35,12 +36,17 @@ class delethandler(Handler):
 		db.delete(Comment.all(keys_only=True))
 		self.redirect("/user")
 
-class MainHandler(Handler):
+class makecooki(webapp2.RequestHandler):
 	def get(self):
 		name = self.request.get("name")
 		self.response.headers.add_header('Set-Cookie', 'name=%s' % str(name))
+		self.redirect("/user")
+
+
+class MainHandler(Handler):
+	def get(self):
 		self.query = Comment.all()
-		self.render("main.html", query = self.query)
+		self.render("main.html", query=self.query)
 		
 
 
@@ -54,6 +60,7 @@ class loginhandler(Handler):
 
 app = webapp2.WSGIApplication([
     ('/', loginhandler),
+    ('/cookie', makecooki),
     ('/user', MainHandler),
     ('/store', storehandler),
     ('/delete', delethandler)
