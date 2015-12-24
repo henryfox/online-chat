@@ -1,6 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
 <form action="/cookie">
 	<label>
 		type your name heare:
 	<input type="text" name="name">
+	<button class="btn btn-success-outline">submit</button>
 	</label>
 </form>
+{% endblock %}

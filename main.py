@@ -22,12 +22,14 @@ class Handler(webapp2.RequestHandler):
 
 class Comment(db.Model):
 	content = db.StringProperty(multiline=True)
+	number = db.IntegerProperty()
 
 class storehandler(Handler):
 	def post(self):
-		name = self.request.cookies.get('name')  
-    		post = self.request.get("post")
-    		self.comment = Comment(content= name + ": " + post)
+		self.query = Comment.all()
+		self.name = self.request.cookies.get('name')  
+    		self.post = self.request.get("post")
+    		self.comment = Comment(content= self.name + ": " + self.post)
     		self.comment.put()
     		self.redirect("/user")
 
