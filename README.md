@@ -1,2 +1,2 @@
 # online-chat
-this is online chat software that i wrote using google app engine
+this is online chat software that I wrote using google app engine
