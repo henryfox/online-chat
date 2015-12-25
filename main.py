@@ -34,7 +34,7 @@ class storehandler(Handler):
 	def post(self):
 		self.query = Comment.all()
 		self.name = self.request.cookies.get('name')  
-    		self.post = str(self.request.get("post"))
+    		self.post = self.request.get("post")
 
 		if self.post.replace(" ", "") == "":
     			self.redirect("/error")
@@ -45,7 +45,7 @@ class storehandler(Handler):
 	    		if j["response"] == "true":
 	    			for x in self.post.split(" "):
 	    				i += 1
-	    				p = urllib2.urlopen("http://www.wdyl.com/profanity?q=%s" % str(x))
+	    				p = urllib2.urlopen("http://www.wdyl.com/profanity?q=%s" % x)
 	    				j2 = json.loads(p.read())
 	    				if j2["response"] == "true":
 	    					word["words"].append({"swear": "true", "index": i - 1})
